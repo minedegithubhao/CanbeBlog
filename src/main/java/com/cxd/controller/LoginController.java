@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/system")
 public class LoginController {
 
-    @RequestMapping("/login")
-    private String list() {
-        return "login";
+    @RequestMapping("/login1")
+    private String list1() {
+        return "login1";
+    }
+
+    @RequestMapping("/login2")
+    private String list2() {
+        return "login2";
     }
 
 }

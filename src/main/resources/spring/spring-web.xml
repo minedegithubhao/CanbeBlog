@@ -23,11 +23,6 @@
 	 -->
 	 <mvc:default-servlet-handler/>
 
-	<!-- 资源映射 -->
-	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
-	<mvc:resources location="/WEB-INF/image/" mapping="/image/**"/>
-
 	<!-- 3.配置jsp 显示ViewResolver -->
 	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	 	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
