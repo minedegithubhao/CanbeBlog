@@ -19,7 +19,7 @@ public class LoginController {
 
     @RequestMapping("/login2")
     private String list2() {
-        return "login2";
+        return  "login2";
     }
 
 }
