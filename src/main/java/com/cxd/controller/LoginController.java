@@ -34,7 +34,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     private String login() {
-        return  "/login/login";
+        return  "/login";
     }
 
     @RequestMapping("/login/Api")
