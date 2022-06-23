@@ -18,4 +18,6 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     SysUser findByNameAndPassword(SysUser sysUser);
+
+    SysUser getUserByName(String username);
 }

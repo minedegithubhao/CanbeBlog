@@ -1,4 +1,4 @@
-package com.cxd.service;
+package com.cxd.service.system;
 
 import com.cxd.entity.system.Book;
 

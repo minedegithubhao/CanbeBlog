@@ -19,7 +19,7 @@
         <div class="text-center mb-4">
             <a href="#" class="navbar-brand navbar-brand-autodark"><img src="${pageContext.request.contextPath}/static/static/logo.svg" height="36" alt=""></a>
         </div>
-        <form class="card card-md" action="." method="get" autocomplete="off">
+        <form class="card card-md" action="/system/login" method="post" autocomplete="off">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">欢迎登陆</h2>
                 <div class="mb-3">
@@ -77,5 +77,6 @@
 <!-- Tabler Core -->
 <script src="${pageContext.request.contextPath}/static/dist/js/tabler.min.js" defer></script>
 <script src="${pageContext.request.contextPath}/static/dist/js/demo.min.js" defer></script>
+<script src="${pageContext.request.contextPath}/static/login.js" defer></script>
 </body>
 </html>

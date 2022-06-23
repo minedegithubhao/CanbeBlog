@@ -1,8 +1,9 @@
-package com.cxd.service.impl;
+package com.cxd.service.system.impl;
 
 import com.cxd.dao.system.SysUserMapper;
 import com.cxd.entity.system.SysUser;
-import com.cxd.service.LoginService;
+import com.cxd.service.system.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,12 +16,22 @@ import javax.annotation.Resource;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Resource
+    @Autowired
     SysUserMapper sysUserMapper;
 
     @Override
     public SysUser login(SysUser sysUser) {
         SysUser user = sysUserMapper.findByNameAndPassword(sysUser);
         return user;
+    }
+
+    @Override
+    public int register(SysUser sysUser) {
+        return sysUserMapper.insert(sysUser);
+    }
+
+    @Override
+    public SysUser getUserByName(String username) {
+        return sysUserMapper.getUserByName(username);
     }
 }

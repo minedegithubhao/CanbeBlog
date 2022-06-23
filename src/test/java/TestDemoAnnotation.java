@@ -1,11 +1,15 @@
 import com.cxd.entity.system.Book;
-import com.cxd.service.BookService;
+import com.cxd.service.system.BookService;
+import com.cxd.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,11 +22,16 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class TestDemoAnnotation {
 
-    @Resource
+    @Autowired
     BookService bookService;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Test
     public void getList(){
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+//        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+//        Arrays.stream(beanDefinitionNames).forEach(System.out::println);
         List<Book> list = bookService.getList();
         list.forEach(System.out::println);
     }

@@ -110,4 +110,13 @@
     from sys_user
     where username = #{username} and password = #{password}
   </select>
+
+  <select id="getUserByName" resultMap="BaseResultMap">
+    select id, username, realname, password, salt, avatar, birthday, sex, email, phone,
+           org_code, status, del_flag, third_id, third_type, activiti_sync, work_no, post, telephone,
+           create_by, create_time, update_by, update_time, user_identity, rel_tenant_ids, client_id,
+           depart_ids
+    from sys_user
+    where username = #{username}
+  </select>
 </mapper>
