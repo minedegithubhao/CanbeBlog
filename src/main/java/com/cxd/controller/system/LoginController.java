@@ -46,7 +46,7 @@ public class LoginController {
         }
 
         try {
-
+            sysUser.setId(UUID.randomUUID().toString().replace("-",""));
             sysUser.setCreateTime(new Date());
             String salt = UUID.randomUUID().toString().replace("-", "");
             String md5password = DigestUtils.md5DigestAsHex((sysUser.getPassword() + salt).getBytes());

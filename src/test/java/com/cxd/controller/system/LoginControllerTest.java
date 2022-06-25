@@ -69,7 +69,7 @@ public class LoginControllerTest {
         System.out.println("请求参数：" + params.toJSONString());
 
         // 利用 RestUtil 请求该url
-        ResponseEntity<JSONObject> result = RestUtil.request(url, method, headers, null, null, JSONObject.class);
+        ResponseEntity<JSONObject> result = RestUtil.request(url, method, headers, params, null, JSONObject.class);
         if (result != null && result.getBody() != null) {
             System.out.println("返回结果：" + result.getBody().toJSONString());
         } else {
