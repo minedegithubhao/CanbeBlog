@@ -30,10 +30,6 @@
     <result column="client_id" jdbcType="VARCHAR" property="clientId" />
     <result column="depart_ids" jdbcType="LONGVARCHAR" property="departIds" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from sys_user
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
   <insert id="insert" parameterType="com.cxd.entity.system.SysUser">
     insert into sys_user (id, username, realname, 
       password, salt, avatar, 
@@ -56,51 +52,6 @@
       #{relTenantIds,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, #{departIds,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.entity.system.SysUser">
-    update sys_user
-    set username = #{username,jdbcType=VARCHAR},
-      realname = #{realname,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=TIMESTAMP},
-      sex = #{sex,jdbcType=BIT},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      org_code = #{orgCode,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT},
-      del_flag = #{delFlag,jdbcType=BIT},
-      third_id = #{thirdId,jdbcType=VARCHAR},
-      third_type = #{thirdType,jdbcType=VARCHAR},
-      activiti_sync = #{activitiSync,jdbcType=BIT},
-      work_no = #{workNo,jdbcType=VARCHAR},
-      post = #{post,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      user_identity = #{userIdentity,jdbcType=BIT},
-      rel_tenant_ids = #{relTenantIds,jdbcType=VARCHAR},
-      client_id = #{clientId,jdbcType=VARCHAR},
-      depart_ids = #{departIds,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select id, username, realname, password, salt, avatar, birthday, sex, email, phone, 
-    org_code, status, del_flag, third_id, third_type, activiti_sync, work_no, post, telephone, 
-    create_by, create_time, update_by, update_time, user_identity, rel_tenant_ids, client_id, 
-    depart_ids
-    from sys_user
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, username, realname, password, salt, avatar, birthday, sex, email, phone, 
-    org_code, status, del_flag, third_id, third_type, activiti_sync, work_no, post, telephone, 
-    create_by, create_time, update_by, update_time, user_identity, rel_tenant_ids, client_id, 
-    depart_ids
-    from sys_user
-  </select>
 
   <select id="findByNameAndPassword" resultMap="BaseResultMap">
     select id, username, realname, password, salt, avatar, birthday, sex, email, phone,

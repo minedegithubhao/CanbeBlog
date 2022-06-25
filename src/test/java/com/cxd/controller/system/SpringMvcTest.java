@@ -1,7 +1,6 @@
 package com.cxd.controller.system;
 
 import com.cxd.dao.system.SysUserMapper;
-import com.cxd.dao.system.UserMapper;
 import com.cxd.entity.system.SysUser;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -22,18 +21,13 @@ import java.util.List;
 public class SpringMvcTest {
 
     @Autowired
-    UserMapper userMapper;
-    @Autowired
     SysUserMapper sysUserMapper;
 
     @Test
     public void testSelect() {
         System.out.println(("----- selectAll method test ------"));
-        List<SysUser> userList = userMapper.selectList(null);
+        List<SysUser> userList = sysUserMapper.selectList(null);
         Assertions.assertEquals(5, userList.size());
         userList.forEach(System.out::println);
-
-        SysUser sysUser = sysUserMapper.selectByPrimaryKey("a75d45a015c44384a04449ee80dc3503");
-        System.out.println(sysUser);
     }
 }
