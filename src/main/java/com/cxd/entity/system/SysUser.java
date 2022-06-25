@@ -1,5 +1,9 @@
 package com.cxd.entity.system;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,10 +12,11 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@KeySequence("SEQ_USER")
+@TableName("sys_user")
 public class SysUser {
+
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
 
     private String username;

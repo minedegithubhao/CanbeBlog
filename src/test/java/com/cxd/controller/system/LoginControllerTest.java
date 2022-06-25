@@ -1,7 +1,6 @@
 package com.cxd.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cxd.service.system.BookService;
 import com.cxd.utils.CommonConstant;
 import com.cxd.utils.JwtUtil;
 import com.cxd.utils.RedisUtil;
@@ -24,8 +23,6 @@ public class LoginControllerTest {
     private final String USERNAME = "admin";
     private final String PASSWORD = "123456";
 
-    @Autowired
-    BookService bookService;
     @Autowired
     private RedisUtil redisUtil;
 

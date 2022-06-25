@@ -1,0 +1,39 @@
+package com.cxd.utils;
+
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
+
+/**
+ * @author cxd
+ * @description: mybatis-plus配置类
+ * @create: 2022-06-25 09:01
+ */
+@Configuration
+public class MybatisPlusConfig {
+
+    @Bean
+    public GlobalConfig globalConfiguration() {
+        GlobalConfig conf = new GlobalConfig();
+        conf.setDbConfig(new GlobalConfig.DbConfig().setKeyGenerators(Arrays.asList(
+                // h2 1.x 的写法（默认 2.x 的写法）
+                new IKeyGenerator() {
+
+                    @Override
+                    public String executeSql(String incrementerName) {
+                        return "select " + incrementerName + ".nextval";
+                    }
+
+                    @Override
+                    public DbType dbType() {
+                        return DbType.POSTGRE_SQL;
+                    }
+                }
+        )));
+        return conf;
+    }
+}

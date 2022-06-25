@@ -7,9 +7,33 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	<!-- 配置整合mybatis过程 -->
+
+	<context:component-scan base-package="com.cxd.dao" />
 	<!-- 1.配置数据库相关参数properties的属性：${url} -->
 	<context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties" />
+
+	<!-- redis配置 -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory"   ref="jedisConnFactory" />
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+		</property>
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+		</property>
+	</bean>
+	<bean id="jedisConnFactory"
+		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		  p:host-name="${redis.host}"
+		  p:port="${redis.port}"
+		  p:poolConfig-ref="poolConfig"
+		  p:use-pool="true"/>
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!--最大空闲连接数-->
+		<property name="maxIdle" value="${redis.maxIdle}"></property>
+		<property name="maxTotal" value="${redis.maxActive}"></property>
+	</bean>
+
 
 	<!-- 2.数据库连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -18,7 +42,6 @@
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-
 		<!-- c3p0连接池的私有属性 -->
 		<property name="maxPoolSize" value="30" />
 		<property name="minPoolSize" value="10" />
@@ -30,31 +53,47 @@
 		<property name="acquireRetryAttempts" value="2" />
 	</bean>
 
-	<!-- reids配置 -->
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory"   ref="jedisConnFactory" />
-		<property name="keySerializer">
-			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
-		</property>
-		<property name="valueSerializer">
-			<bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+	<!-- 3.整合mybatis-plus -->
+	<bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+		<!-- 注入数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 扫描sql配置文件:mapper需要的xml文件 /**/ 表示任意级目录，*.xml 该目录下的任意xml文件， 结合在一起就是任意目录下的任意xml文件-->
+		<property name="mapperLocations" value="classpath:com/cxd/dao/**/*.xml" />
+		<property name="globalConfig" ref="globalConfig"/>
+		<property name="plugins">
+			<array>
+				<ref bean="mybatisPlusInterceptor"/>
+			</array>
 		</property>
 	</bean>
-
-	<bean id="jedisConnFactory"
-		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		  p:host-name="${redis.host}"
-		  p:port="${redis.port}"
-		  p:poolConfig-ref="poolConfig"
-		  p:use-pool="true"/>
-
-	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<!--最大空闲连接数-->
-		<property name="maxIdle" value="${redis.maxIdle}"></property>
-		<property name="maxWaitMillis" value="${redis.maxWait}"></property>
-		<property name="maxTotal" value="${redis.maxActive}"></property>
+	<bean id="mybatisPlusInterceptor" class="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
+		<property name="interceptors">
+			<list>
+				<ref bean="paginationInnerInterceptor"/>
+			</list>
+		</property>
 	</bean>
-
+	<bean id="paginationInnerInterceptor"
+		  class="com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor">
+		<constructor-arg name="dbType" value="H2"/>
+	</bean>
+	<bean id="countSqlParser"
+		  class="com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize">
+		<property name="optimizeJoin" value="true"/>
+	</bean>
+	<bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+		<property name="dbConfig" ref="dbConfig"/>
+	</bean>
+	<bean id="dbConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig">
+		<property name="keyGenerators">
+			<list>
+				<bean class="com.baomidou.mybatisplus.extension.incrementer.H2KeyGenerator"/>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cxd.dao" />
+	</bean>
 
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
@@ -63,25 +102,4 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<!-- 3.配置SqlSessionFactory对象 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- 注入数据库连接池 -->
-		<property name="dataSource" ref="dataSource" />
-		<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
-		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<!-- 扫描entity包 使用别名 -->
-		<property name="typeAliasesPackage" value="com.cxd.entity" />
-		<!-- 扫描sql配置文件:mapper需要的xml文件 /**/ 表示任意级目录，*.xml 该目录下的任意xml文件， 结合在一起就是任意目录下的任意xml文件-->
-		<property name="mapperLocations" value="classpath:com/cxd/dao/**/*.xml" />
-	</bean>
-
-	<!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<!-- 注入sqlSessionFactory -->
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-		<!-- 给出需要扫描Dao接口包 -->
-		<property name="basePackage" value="com.cxd.dao" />
-	</bean>
-
-	<context:component-scan base-package="com.cxd.dao" />
 </beans>

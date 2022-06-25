@@ -1,11 +1,3 @@
-import com.cxd.entity.system.Book;
-import com.cxd.service.system.BookService;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
-
 /**
  * @author cxd
  * @description:
