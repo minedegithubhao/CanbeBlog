@@ -3,12 +3,15 @@ package com.cxd.controller.system;
 import com.cxd.entity.system.SysUser;
 import com.cxd.service.system.LoginService;
 import com.cxd.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.Objects;
@@ -19,6 +22,7 @@ import java.util.UUID;
  * @description:
  * @create: 2022-05-30 21:26
  */
+@Api(value = "student的操作类")
 @Controller
 @RequestMapping("/sys/login")
 public class LoginController {
@@ -31,6 +35,7 @@ public class LoginController {
      * @param sysUser
      * @return DataResult
      */
+    @ApiOperation(value = "根据id查询学生信息", notes = "查询学生", response = ModelAndView.class)
     @RequestMapping("/register")
     @ResponseBody
     private Result<SysUser> register(SysUser sysUser){

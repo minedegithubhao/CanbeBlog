@@ -1,5 +1,7 @@
 package com.cxd.controller.system;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cxd.dao.system.SysUserMapper;
 import com.cxd.entity.system.SysUser;
 import org.junit.Test;
@@ -29,5 +31,13 @@ public class SpringMvcTest {
         List<SysUser> userList = sysUserMapper.selectList(null);
         Assertions.assertEquals(5, userList.size());
         userList.forEach(System.out::println);
+
+        System.out.println(("----- 分页 ------"));
+        IPage<SysUser> page = new Page<>();
+        page.setSize(3);
+        page.setCurrent(2);
+        IPage<SysUser> page1 = sysUserMapper.selectPage(page, null);
+//        Assertions.assertEquals(3, page1.getRecords().size());
+        page1.getRecords().stream().forEach(System.out::println);
     }
 }
