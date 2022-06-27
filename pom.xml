@@ -18,6 +18,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <spring-version>5.3.20</spring-version>
+    <swagger-version>2.9.2</swagger-version>
   </properties>
   
   <dependencies>
@@ -51,19 +52,6 @@
       <version>0.9.5.5</version>
     </dependency>
 
-<!--    &lt;!&ndash; DAO: MyBatis &ndash;&gt;-->
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.mybatis</groupId>-->
-<!--      <artifactId>mybatis</artifactId>-->
-<!--      <version>3.5.3</version>-->
-<!--    </dependency>-->
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis-spring &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.mybatis</groupId>-->
-<!--      <artifactId>mybatis-spring</artifactId>-->
-<!--      <version>2.0.3</version>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus</artifactId>
@@ -199,12 +187,14 @@
       <artifactId>freemarker</artifactId>
       <version>2.3.31</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
@@ -233,6 +223,21 @@
       <artifactId>spring-aop</artifactId>
       <version>${spring-version}</version>
     </dependency>
+
+    <!-- 引入Swagger2 -->
+    <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger-version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger-version}</version>
+    </dependency>
+
 
   </dependencies>
 
