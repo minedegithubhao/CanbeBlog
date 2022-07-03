@@ -238,6 +238,7 @@
       <version>${swagger-version}</version>
     </dependency>
 
+    <!-- 引入shiro -->
 
   </dependencies>
 

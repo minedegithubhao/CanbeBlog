@@ -23,7 +23,7 @@ import java.util.UUID;
  * @description:
  * @create: 2022-05-30 21:26
  */
-@Api(value = "student的操作类")
+@Api(tags = "Sys/Login操作类")
 @Controller
 @RequestMapping("/sys/login")
 public class LoginController {
@@ -36,7 +36,7 @@ public class LoginController {
      * @param sysUser
      * @return DataResult
      */
-    @ApiOperation(value = "根据id查询学生信息", notes = "查询学生", response = ModelAndView.class)
+    @ApiOperation(value = "用户注册", notes = "用户注册", response = ModelAndView.class)
     @PostMapping("/register")
     @ResponseBody
     private Result<SysUser> register(SysUser sysUser){
@@ -63,5 +63,6 @@ public class LoginController {
             return Result.failed("注册失败");
         }
     }
+
 
 }

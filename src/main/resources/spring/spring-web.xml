@@ -30,6 +30,10 @@
 	 <mvc:default-servlet-handler/>
 
 	<!-- 将swagger引入IOC容器  -->
+	<!-- 如果这里引用了swagger的默认配置，那么就不用在本地项目中编写SwaggerConfig.java了，当请求swagger-ui.html时会直接去springfox-swagger2-2.9.2.jar中访问/v2/api-doc接口
+	  	优点：不必引入Swagger相关静态资源
+	  	缺点：无法对swagger自定义
+	  -->
 	<!-- 自动扫描swagger配置文件,写入swagger资源路径映射 -->
 	<bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 
